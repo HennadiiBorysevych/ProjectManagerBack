@@ -1,6 +1,7 @@
 const Client = require("../models/Client");
 const Project = require("../models/Project");
 
+
 const {
   GraphQLObjectType,
   GraphQLID,
@@ -10,6 +11,7 @@ const {
   GraphQLNonNull,
   GraphQLEnumType,
 } = require("graphql");
+
 
 //client
 const ClientType = new GraphQLObjectType({
@@ -96,7 +98,7 @@ const mutation = new GraphQLObjectType({
     deleteClient: {
       type: ClientType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLString) },
+        id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
         return Client.findByIdAndDelete(args.id);
@@ -122,6 +124,7 @@ const mutation = new GraphQLObjectType({
         clientId: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
+
         const project = new Project({
           name: args.name,
           description: args.description,
@@ -136,7 +139,7 @@ const mutation = new GraphQLObjectType({
     deleteProject: {
       type: ProjectType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLString) },
+        id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
         return Project.findByIdAndDelete(args.id);
@@ -146,7 +149,7 @@ const mutation = new GraphQLObjectType({
     updateProject: {
       type: ProjectType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLString) },
+        id: { type: GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLString },
         description: { type: GraphQLString },
         status: {
